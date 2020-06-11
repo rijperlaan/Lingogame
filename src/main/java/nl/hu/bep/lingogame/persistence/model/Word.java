@@ -9,7 +9,15 @@ import javax.persistence.Table;
 public class Word {
 
     @Id
-    private String word;
+    private final String word;
+
+    public Word() {
+        word = "";
+    }
+
+    public Word(String s) {
+        word = s;
+    }
 
     public String getWord() {
         return word;
