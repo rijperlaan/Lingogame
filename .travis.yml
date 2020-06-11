@@ -1,4 +1,7 @@
 language: java
-
+services:
+  - postgresql
 before_install:
   - chmod +x mvnw
+before_script:
+  - psql -c 'create database lingo;' -U postgres -P geheim
