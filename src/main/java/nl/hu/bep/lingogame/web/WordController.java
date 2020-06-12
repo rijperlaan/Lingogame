@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/words")
 public class WordController {
@@ -17,15 +15,19 @@ public class WordController {
     private WordRepository wordRepository;
 
     @GetMapping
-    public List<String> findAll() {
+    public String getWord() {
         WordList wordList = new WordList(wordRepository.findAll());
-        return wordList.getWords();
+        String word = wordList.getRandomWord();
+        System.out.println("Game started with word: " + word);
+        return word;
     }
 
     @GetMapping("/{length}")
-    public List<String> findByLength(@PathVariable int length) {
+    public String getWordByLength(@PathVariable int length) {
         WordList wordList = new WordList(wordRepository.findAll());
-        return wordList.getWords(length);
+        String word = wordList.getRandomWord(length);
+        System.out.println("Game started with word: " + word);
+        return word;
     }
 
 }

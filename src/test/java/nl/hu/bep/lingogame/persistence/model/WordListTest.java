@@ -43,4 +43,31 @@ class WordListTest {
         assertEquals(1, wordList.getWords(6).size());
         assertEquals(3, wordList.getWords(7).size());
     }
+
+    @Test
+    void testGetRandomWordWithLength() {
+        List<Word> words = new ArrayList<>();
+        words.add(new Word("daken"));
+        words.add(new Word("dakens"));
+        WordList wordList = new WordList(words);
+
+        assertEquals("daken", wordList.getRandomWord(5));
+        assertEquals("dakens", wordList.getRandomWord(6));
+        assertEquals("", wordList.getRandomWord(-1));
+        assertEquals("", wordList.getRandomWord(8));
+        assertEquals("", wordList.getRandomWord(7));
+    }
+
+    @Test
+    void testGetRandomWord() {
+        List<Word> words = new ArrayList<>();
+        WordList wordList = new WordList(words);
+
+        assertEquals("", wordList.getRandomWord());
+
+        words.add(new Word("daken"));
+        wordList = new WordList(words);
+
+        assertEquals("daken", wordList.getRandomWord());
+    }
 }

@@ -2,6 +2,7 @@ package nl.hu.bep.lingogame.persistence.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class WordList {
     private final List<String> words;
@@ -37,5 +38,22 @@ public class WordList {
             case 7: return sevenLetter;
             default: return new ArrayList<>();
         }
+    }
+
+    public String getRandomWord(int length) {
+        Random rand = new Random();
+        List<String> list = getWords(length);
+        if (list.isEmpty()) {
+            return "";
+        }
+        return getWords(length).get(rand.nextInt(list.size()));
+    }
+
+    public String getRandomWord() {
+        if (words.isEmpty()) {
+            return "";
+        }
+        Random rand = new Random();
+        return words.get(rand.nextInt(words.size()));
     }
 }
