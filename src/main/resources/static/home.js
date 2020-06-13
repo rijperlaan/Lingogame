@@ -15,7 +15,13 @@ function sendGuess() {
         initPage();
     }
 
-    let guess = guessField.value.substring(0, gameType);
+    let guess = guessField.value.substring(0, gameType).toLowerCase();
+
+    if (guess.length < gameType) {
+        alert("You are missing a few letters for a " + gameType + " letter word!");
+        return;
+    }
+
     let data = {
         word: word,
         guess: guess
@@ -34,6 +40,25 @@ function sendGuess() {
         })
         .then(myJson =>  {
             console.log(myJson)
+            let contentContainer = document.getElementById("contentContainer");
+            let div = document.createElement("div");
+            div.classList.add("row");
+
+            for (let element of myJson) {
+                console.log(element);
+                let tile = document.createElement("div");
+                tile.classList.add("tile");
+                tile.innerHTML = element[0].toUpperCase();
+                if (element[1] === "correct") {
+                    tile.classList.add("correct");
+                } else if (element[1] === "exists") {
+                    tile.classList.add("exists");
+                }
+                div.appendChild(tile);
+            }
+
+            contentContainer.appendChild(div);
+            guessField.value = "";
         })
         .catch(error => console.log(error));
 }
@@ -63,7 +88,7 @@ initPage();
 
 guessField.addEventListener('keyup', toUpper);
 
-guessButton.addEventListener('keyup', sendGuess);
+guessButton.addEventListener('click', sendGuess);
 
 guessField.addEventListener("keyup", function(event) {
     // 13 is the Enter key
