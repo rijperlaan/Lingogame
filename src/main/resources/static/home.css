@@ -1,0 +1,53 @@
+body {
+    background-color: royalblue;
+}
+
+#gameContainer {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+    font-family: "Segoe UI Black", serif;
+    color: white;
+}
+
+#gameHeader h1 {
+    font-size: 80px;
+}
+.row {
+    margin-top: 10px;
+}
+
+.tile {
+    border-radius: 5px;
+    display: inline-block;
+    height: 60px;
+    line-height: 55px;
+    width: 60px;
+    box-shadow: 1px 1px 5px black;
+    background-color: royalblue;
+    font-size: 50px;
+    text-align: center;
+    text-shadow: 1px 1px 4px black;
+    vertical-align: top;
+}
+
+.correct {
+    background-color: #d9331b;
+}
+
+.exists {
+    background-color: #ffca48;
+}
+
+#contentContainer input {
+    color: white;
+    font-family: "Segoe UI Black", serif;
+    line-height: 55px;
+}
+
+#guess {
+    width: 385px;
+    box-sizing: border-box;
+}
