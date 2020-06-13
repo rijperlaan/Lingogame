@@ -1,5 +1,7 @@
 body {
     background-color: royalblue;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bolder;
 }
 
 #gameContainer {
@@ -8,12 +10,12 @@ body {
     width: 100%;
     vertical-align: middle;
     text-align: center;
-    font-family: "Segoe UI Black", serif;
     color: white;
 }
 
 #gameHeader h1 {
-    font-size: 80px;
+    font-size: 100px;
+    margin-top: 30px;
 }
 .row {
     margin-top: 10px;
@@ -23,11 +25,11 @@ body {
     border-radius: 5px;
     display: inline-block;
     height: 60px;
-    line-height: 55px;
+    line-height: 63px;
     width: 60px;
     box-shadow: 1px 1px 5px black;
     background-color: royalblue;
-    font-size: 50px;
+    font-size: 60px;
     text-align: center;
     text-shadow: 1px 1px 4px black;
     vertical-align: top;
@@ -44,8 +46,6 @@ body {
 
 #contentContainer input {
     color: white;
-    font-family: "Segoe UI Black", serif;
-    line-height: 55px;
 }
 
 #guess {
