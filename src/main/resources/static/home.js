@@ -1,8 +1,54 @@
 let guessField = document.getElementById("guess");
 let guessButton = document.getElementById("guessButton");
 let gameTypeElement = document.getElementById("gameType");
-gameTypeElement.innerHTML = "5 letter words";
 let gameType = 5;
+gameTypeElement.innerHTML = gameType + " letter words";
+
+let fiveButton = document.getElementById("fiveButton");
+let sixButton = document.getElementById("sixButton");
+let sevenButton = document.getElementById("sevenButton");
+
+guessField.addEventListener('keyup', toUpper);
+guessButton.addEventListener('click', sendGuess);
+guessField.addEventListener("keyup", function (event) {
+    // 13 is the Enter key
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        sendGuess();
+    }
+});
+
+fiveButton.addEventListener("click", function (event) {
+    gameType = 5;
+    fiveButton.classList.add("selected");
+    sixButton.classList.remove("selected");
+    sevenButton.classList.remove("selected");
+    gameTypeElement.innerHTML = gameType + " letter words";
+    sessionStorage.removeItem("word");
+    resetGuesses();
+});
+
+sixButton.addEventListener("click", function (event) {
+    gameType = 6;
+    sixButton.classList.add("selected");
+    fiveButton.classList.remove("selected");
+    sevenButton.classList.remove("selected");
+    gameTypeElement.innerHTML = gameType + " letter words";
+    sessionStorage.removeItem("word");
+    resetGuesses();
+});
+
+sevenButton.addEventListener("click", function (event) {
+    gameType = 7;
+    sevenButton.classList.add("selected");
+    sixButton.classList.remove("selected");
+    fiveButton.classList.remove("selected");
+    gameTypeElement.innerHTML = gameType + " letter words";
+    sessionStorage.removeItem("word");
+    resetGuesses();
+});
+
+
 
 function toUpper() {
     guessField.value = guessField.value.toUpperCase();
@@ -68,7 +114,7 @@ function sendGuess() {
                 div.appendChild(tile);
             }
             if (complete) {
-                sessionStorage.clear();
+                sessionStorage.removeItem("word");
             }
             if (guessContainer.children.length > 4) {
                 guessContainer.removeChild(guessContainer.firstChild);
@@ -96,15 +142,3 @@ function getWord() {
         })
         .catch(error => console.log(error));
 }
-
-guessField.addEventListener('keyup', toUpper);
-
-guessButton.addEventListener('click', sendGuess);
-
-guessField.addEventListener("keyup", function (event) {
-    // 13 is the Enter key
-    if (event.keyCode === 13) {
-        event.preventDefault();
-        sendGuess();
-    }
-});

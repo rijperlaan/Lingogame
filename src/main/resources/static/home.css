@@ -19,6 +19,11 @@ body {
     margin-top: 30px;
 }
 
+#gameHeader h2 {
+    display: inline-block;
+    margin-top: 0;
+}
+
 .row {
     margin-top: 10px;
 }
@@ -36,6 +41,17 @@ body {
     text-shadow: 1px 1px 4px black;
     vertical-align: top;
     margin-right: 5px;
+}
+
+.small {
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+    line-height: 32px;
+}
+
+.selected {
+    background-color: #809eff;
 }
 
 .correct {
