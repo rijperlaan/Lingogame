@@ -23,3 +23,8 @@ Applicatie is live te vinden op: <br>
 
 ###Database
 - Postgres
+
+
+##Coverage
+![alt text](https://i.imgur.com/x1OzvL7.png) <br>
+Het was helaas niet meer gelukt om CodeCov werkend te krijgen
