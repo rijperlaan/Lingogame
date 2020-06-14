@@ -4,8 +4,6 @@ let gameTypeElement = document.getElementById("gameType");
 gameTypeElement.innerHTML = "5 letter words";
 let gameType = 5;
 
-resetGuesses();
-
 function toUpper() {
     guessField.value = guessField.value.toUpperCase();
 }
@@ -13,19 +11,6 @@ function toUpper() {
 function resetGuesses() {
     let guessContainer = document.getElementById("guessContainer");
     guessContainer.innerHTML = "";
-
-    // for (let i = 0; i < gameType; i++) {
-    //     let div = document.createElement("div");
-    //     div.classList.add("row");
-    //
-    //     for (let o = 0; o < 5; o++) {
-    //         let tile = document.createElement("div");
-    //         tile.classList.add("tile");
-    //         div.appendChild(tile);
-    //     }
-    //
-    //     guessContainer.appendChild(div)
-    // }
 }
 
 function sendGuess() {
