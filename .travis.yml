@@ -1,7 +1,7 @@
 language: java
 env:
   global:
-    - CODECOV_TOKEN=:5ad0412a-6a43-4582-aba0-10e6a89fa217
+    - CODECOV_TOKEN=:uuid-repo-token
 services:
   - postgresql
 before_install:
