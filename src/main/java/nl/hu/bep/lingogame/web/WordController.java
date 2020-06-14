@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import nl.hu.bep.lingogame.persistence.model.WordList;
 import nl.hu.bep.lingogame.persistence.repo.WordRepository;
+import nl.hu.bep.lingogame.service.EncryptionService;
 import nl.hu.bep.lingogame.service.GuessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,14 +27,14 @@ public class WordController {
 
     @GetMapping
     public ObjectNode getWord() {
-        ObjectNode node = mapper.createObjectNode();
+        ObjectNode response = mapper.createObjectNode();
 
         WordList wordList = new WordList(wordRepository.findAll());
         String word = wordList.getRandomWord();
-        System.out.println("Game started with word: " + word);
+        System.out.println("Game started: " + word);
 
-        node.put("word", word);
-        return node;
+        response.put("word", EncryptionService.encrypt(word));
+        return response;
     }
 
     @GetMapping("/{length}")
@@ -42,9 +43,9 @@ public class WordController {
 
         WordList wordList = new WordList(wordRepository.findAll());
         String word = wordList.getRandomWord(length);
-        System.out.println("Game started with word: " + word);
+        System.out.println("Game started: " + word);
 
-        response.put("word", word);
+        response.put("word", EncryptionService.encrypt(word));
         return response;
     }
 
@@ -52,10 +53,12 @@ public class WordController {
     public ArrayNode guessWord(@RequestBody String json) throws JsonProcessingException {
         ObjectNode body = mapper.readValue(json, ObjectNode.class);
 
-        GuessService guessService = new GuessService(body.get("word").textValue());
+        String word = EncryptionService.decrypt(body.get("word").textValue());
+
+        GuessService guessService = new GuessService(word);
         String[][] guessResult = guessService.checkGuess(body.get("guess").textValue());
-        System.out.println("Word: " + body.get("word").textValue());
-        System.out.println("Guess: " + mapper.valueToTree(guessResult));
+
+        System.out.println("Guess: " + body.get("guess").textValue() + " (" + word + ")");
 
         return mapper.valueToTree(guessResult);
     }
