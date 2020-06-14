@@ -21,16 +21,20 @@ class GuessServiceTest {
 
     @Test
     void testCheckGuess() {
-        GuessService guessService = new GuessService("test");
-        String[][] result = guessService.checkGuess("ttex");
+        GuessService guessService = new GuessService("testop");
+        String[][] result = guessService.checkGuess("tsxott");
         assertEquals("t", result[0][0]);
-        assertEquals("t", result[1][0]);
-        assertEquals("e", result[2][0]);
-        assertEquals("x", result[3][0]);
+        assertEquals("s", result[1][0]);
+        assertEquals("x", result[2][0]);
+        assertEquals("o", result[3][0]);
+        assertEquals("t", result[4][0]);
+        assertEquals("t", result[5][0]);
 
         assertEquals("correct", result[0][1]);
-        assertEquals("exists", result[1][1]);
-        assertEquals("exists", result[2][1]);
-        assertEquals("wrong", result[3][1]);
+        assertEquals("present", result[1][1]);
+        assertEquals("absent", result[2][1]);
+        assertEquals("present", result[3][1]);
+        assertEquals("present", result[4][1]);
+        assertEquals("absent", result[5][1]);
     }
 }

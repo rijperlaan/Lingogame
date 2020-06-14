@@ -107,8 +107,8 @@ function sendGuess() {
                     tile.classList.add("correct");
                 } else {
                     complete = false;
-                    if (element[1] === "exists") {
-                        tile.classList.add("exists");
+                    if (element[1] === "present") {
+                        tile.classList.add("present");
                     }
                 }
                 div.appendChild(tile);
