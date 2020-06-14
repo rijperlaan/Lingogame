@@ -1,7 +1,12 @@
 language: java
+env:
+  global:
+    - CODECOV_TOKEN=:5ad0412a-6a43-4582-aba0-10e6a89fa217
 services:
   - postgresql
 before_install:
   - chmod +x mvnw
 before_script:
   - psql -c 'create database lingo;' -U postgres
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
