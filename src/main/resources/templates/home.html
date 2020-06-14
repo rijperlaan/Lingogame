@@ -9,14 +9,14 @@
 <div id="gameContainer">
     <div id="gameHeader">
         <h1><span th:text="${appName}">Our App</span></h1>
-        <h2 id="gameType">x letter words</h2>
-        <div id="fiveButton" class="tile small selected">5</div>
+        <h2 id="gameType">Select word length to start</h2>
+        <div id="fiveButton" class="tile small">5</div>
         <div id="sixButton" class="tile small">6</div>
         <div id="sevenButton" class="tile small">7</div>
     </div>
     <div id="contentContainer">
         <div class="row">
-            <input type="text" id="guess" class="tile" autocomplete="off">
+            <input type="text" id="guess" class="tile" autocomplete="off" disabled>
             <div id="guessButton" class="tile">></div>
         </div>
 

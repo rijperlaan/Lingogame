@@ -38,6 +38,7 @@ public class WordController {
 
         session.put(word, 0);
         response.put("word", EncryptionService.encrypt(word));
+        response.put("firstLetter", word.substring(0, 1));
         return response;
     }
 
@@ -51,6 +52,7 @@ public class WordController {
 
         session.put(word, 0);
         response.put("word", EncryptionService.encrypt(word));
+        response.put("firstLetter", word.substring(0, 1));
         return response;
     }
 

@@ -22,6 +22,7 @@ body {
 #gameHeader h2 {
     display: inline-block;
     margin-top: 0;
+    width: 325px;
 }
 
 .row {
@@ -74,5 +75,9 @@ body {
     width: 385px;
     box-sizing: border-box;
     margin-left: 60px;
+}
+
+#guess[disabled] {
+    background-color: #a0a0a0;
 }
 

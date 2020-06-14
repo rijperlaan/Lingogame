@@ -1,16 +1,12 @@
-let guessField = document.getElementById("guess");
-let guessButton = document.getElementById("guessButton");
-let gameTypeElement = document.getElementById("gameType");
-let gameType = 5;
-gameTypeElement.innerHTML = gameType + " letter words";
+let gameType = -1;
 
 let fiveButton = document.getElementById("fiveButton");
 let sixButton = document.getElementById("sixButton");
 let sevenButton = document.getElementById("sevenButton");
 
-guessField.addEventListener('keyup', toUpper);
-guessButton.addEventListener('click', sendGuess);
-guessField.addEventListener("keyup", function (event) {
+document.getElementById("guess").addEventListener('keyup', toUpper);
+document.getElementById("guessButton").addEventListener('click', sendGuess);
+document.getElementById("guess").addEventListener("keyup", function (event) {
     // 13 is the Enter key
     if (event.keyCode === 13) {
         event.preventDefault();
@@ -23,52 +19,57 @@ fiveButton.addEventListener("click", function (event) {
     fiveButton.classList.add("selected");
     sixButton.classList.remove("selected");
     sevenButton.classList.remove("selected");
-    gameTypeElement.innerHTML = gameType + " letter words";
-    sessionStorage.removeItem("word");
-    resetGuesses();
+    startGame();
 });
-
 sixButton.addEventListener("click", function (event) {
     gameType = 6;
     sixButton.classList.add("selected");
     fiveButton.classList.remove("selected");
     sevenButton.classList.remove("selected");
-    gameTypeElement.innerHTML = gameType + " letter words";
-    sessionStorage.removeItem("word");
-    resetGuesses();
+    startGame();
 });
-
 sevenButton.addEventListener("click", function (event) {
     gameType = 7;
     sevenButton.classList.add("selected");
     sixButton.classList.remove("selected");
     fiveButton.classList.remove("selected");
-    gameTypeElement.innerHTML = gameType + " letter words";
-    sessionStorage.removeItem("word");
-    resetGuesses();
+    startGame();
 });
 
-
+function startGame() {
+    document.getElementById("gameType").innerHTML = gameType + " letter word";
+    let guessContainer = document.getElementById("guessContainer");
+    guessContainer.innerHTML = "";
+    getWord();
+    document.getElementById("guess").disabled = false;
+}
 
 function toUpper() {
+    let guessField = document.getElementById("guess");
     guessField.value = guessField.value.toUpperCase();
 }
 
-function resetGuesses() {
-    let guessContainer = document.getElementById("guessContainer");
-    guessContainer.innerHTML = "";
+function resetGame() {
+    preparedLine = null;
+    given = ["", "", "", "", "", "", ""];
+    sessionStorage.removeItem("word");
+    document.getElementById("guess").disabled = true;
+    gameType = -1;
+    fiveButton.classList.remove("selected");
+    sixButton.classList.remove("selected");
+    sevenButton.classList.remove("selected");
+    document.getElementById("gameType").innerHTML = "Select word length to start";
 }
 
 function sendGuess() {
     let word = sessionStorage.getItem("word");
-    console.log(word);
     if (word == null) {
-        resetGuesses();
+        resetGame();
         getWord();
         return;
     }
 
-    let guess = guessField.value.substring(0, gameType).toLowerCase();
+    let guess = document.getElementById("guess").value.substring(0, gameType).toLowerCase();
 
     if (guess.length < gameType) {
         alert("You are missing a few letters for a " + gameType + " letter word!");
@@ -92,35 +93,30 @@ function sendGuess() {
             }
         })
         .then(myJson => {
-            console.log(myJson)
-            let guessContainer = document.getElementById("guessContainer");
-            let div = document.createElement("div");
-            div.classList.add("row");
-
             let complete = true;
-
+            let i = 0;
             for (let element of myJson) {
-                let tile = document.createElement("div");
-                tile.classList.add("tile");
+                let tile = preparedLine.children[i];
                 tile.innerHTML = element[0].toUpperCase();
-                if (element[1] === "correct") {
-                    tile.classList.add("correct");
-                } else {
+                tile.classList.add(element[1]);
+                if (element[1] !== "correct") {
                     complete = false;
-                    if (element[1] === "present") {
-                        tile.classList.add("present");
-                    }
+                } else {
+                    given[i] = element[0].toUpperCase();
                 }
-                div.appendChild(tile);
+                i++;
             }
-            if (complete) {
-                sessionStorage.removeItem("word");
-            }
+
+            let guessContainer = document.getElementById("guessContainer");
             if (guessContainer.children.length > 4) {
                 guessContainer.removeChild(guessContainer.firstChild);
             }
-            guessContainer.appendChild(div);
-            guessField.value = "";
+            document.getElementById("guess").value = "";
+            if (complete) {
+                resetGame();
+            } else {
+                prepareLine();
+            }
         })
         .catch(error => console.log(error));
 }
@@ -138,7 +134,30 @@ function getWord() {
         })
         .then(myJson => {
             window.sessionStorage.setItem("word", myJson.word);
-            sendGuess();
+            given[0] = myJson.firstLetter.toUpperCase();
+            prepareLine();
         })
         .catch(error => console.log(error));
 }
+
+let preparedLine = null;
+let given = ["", "", "", "", "", "", ""];
+
+function prepareLine() {
+    let guessContainer = document.getElementById("guessContainer");
+
+    preparedLine = document.createElement("div");
+    preparedLine.classList.add("row");
+
+    for (let i = 0; i < gameType; i++) {
+        let tile = document.createElement("div");
+        tile.classList.add("tile");
+        preparedLine.appendChild(tile);
+        if (given[i] !== "") {
+            tile.innerHTML = given[i];
+        }
+    }
+
+    guessContainer.appendChild(preparedLine);
+}
+
