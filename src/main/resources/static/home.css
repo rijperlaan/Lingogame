@@ -73,9 +73,15 @@ body {
 }
 
 #guess {
+    height: 80px;
     width: 385px;
     box-sizing: border-box;
     margin-left: 60px;
+}
+
+#guessButton {
+    height: 80px;
+    line-height: 79px;
 }
 
 #guess[disabled] {
