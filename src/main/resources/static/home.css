@@ -20,10 +20,11 @@ body {
     margin-bottom: 30px;
 }
 
-#gameHeader h2 {
-    display: inline-block;
-    margin-top: 0;
-    width: 325px;
+#gameType {
+    display: block;
+    font-size: 35px;
+    horiz-align: center;
+    margin-bottom: 10px;
 }
 
 .row {
@@ -45,13 +46,6 @@ body {
     margin-right: 5px;
 }
 
-.small {
-    height: 30px;
-    width: 30px;
-    font-size: 30px;
-    line-height: 32px;
-}
-
 .selected {
     background-color: #809eff;
 }
@@ -70,13 +64,15 @@ body {
 
 #contentContainer {
     height: 100%;
+    margin-top: 20px;
 }
 
 #guess {
     height: 80px;
-    width: 385px;
+    width: 380px;
     box-sizing: border-box;
-    margin-left: 60px;
+    horiz-align: center;
+    padding: 0;
 }
 
 #guessButton {
@@ -88,3 +84,6 @@ body {
     background-color: #a0a0a0;
 }
 
+.gameOver {
+    background-color: grey;
+}
