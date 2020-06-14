@@ -11,12 +11,14 @@ body {
     vertical-align: middle;
     text-align: center;
     color: white;
+    padding-right: 20px;
 }
 
 #gameHeader h1 {
     font-size: 100px;
     margin-top: 30px;
 }
+
 .row {
     margin-top: 10px;
 }
@@ -48,8 +50,13 @@ body {
     color: white;
 }
 
+#contentContainer {
+    height: 100%;
+}
+
 #guess {
     width: 385px;
     box-sizing: border-box;
     margin-left: 60px;
 }
+
