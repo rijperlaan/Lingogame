@@ -50,8 +50,9 @@ function toUpper() {
 }
 
 function resetGame() {
-    preparedLine = null;
+    preparedLine = [null, null, null, null, null, null];
     given = ["", "", "", "", "", "", ""];
+    lineIndex = 0;
     sessionStorage.removeItem("word");
     sessionStorage.removeItem("sessionToken");
     document.getElementById("guess").disabled = true;
@@ -100,7 +101,7 @@ function sendGuess() {
             let complete = true;
             let i = 0;
             for (let element of myJson.guessResult) {
-                let tile = preparedLine.children[i];
+                let tile = preparedLine[lineIndex].children[i];
                 tile.innerHTML = element[0].toUpperCase();
                 tile.classList.add(element[1]);
                 if (element[1] !== "correct") {
@@ -111,22 +112,20 @@ function sendGuess() {
                 i++;
             }
 
+            lineIndex++;
+
             document.getElementById("guess").value = "";
             if (myJson.gameOver) {
                 for (let i = 0; i < given.length; i++) {
                     given[i] = myJson.answer.substring(i, i + 1).toUpperCase();
                 }
-                prepareLine(true);
+                showAnswer();
                 resetGame();
             } else {
                 if (complete) {
                     resetGame();
                 } else {
-                    let guessContainer = document.getElementById("guessContainer");
-                    if (guessContainer.children.length > 4) {
-                        guessContainer.removeChild(guessContainer.firstChild);
-                    }
-                    prepareLine(false);
+                    fillPreparedLine();
                 }
             }
         })
@@ -148,32 +147,55 @@ function getWord() {
             window.sessionStorage.setItem("word", myJson.word);
             window.sessionStorage.setItem("sessionToken", myJson.sessionToken);
             given[0] = myJson.firstLetter.toUpperCase();
-            prepareLine(false);
+            prepareLines();
+            fillPreparedLine();
         })
         .catch(error => console.log(error));
 }
 
-let preparedLine = null;
+let preparedLine = [null, null, null, null, null, null];
+let lineIndex = 0;
 let given = ["", "", "", "", "", "", ""];
 
-function prepareLine(gameOver) {
+function prepareLines() {
     let guessContainer = document.getElementById("guessContainer");
+    for (let o = 0; o < 5; o++) {
+        preparedLine[o] = document.createElement("div");
+        preparedLine[o].classList.add("row");
 
-    preparedLine = document.createElement("div");
-    preparedLine.classList.add("row");
-
-    for (let i = 0; i < gameType; i++) {
-        let tile = document.createElement("div");
-        tile.classList.add("tile");
-        if (gameOver) {
-            tile.classList.add("gameOver");
+        for (let i = 0; i < gameType; i++) {
+            let tile = document.createElement("div");
+            tile.classList.add("tile");
+            preparedLine[o].appendChild(tile);
         }
-        preparedLine.appendChild(tile);
+        guessContainer.appendChild(preparedLine[o]);
+    }
+}
+
+function fillPreparedLine() {
+    for (let i = 0; i < gameType; i++) {
+        let tile = preparedLine[lineIndex].children[i];
         if (given[i] !== "") {
             tile.innerHTML = given[i].toUpperCase();
         }
     }
-
-    guessContainer.appendChild(preparedLine);
 }
 
+function showAnswer() {
+    let guessContainer = document.getElementById("guessContainer");
+    let newLine = document.createElement("div");
+    newLine.classList.add("row");
+
+    for (let i = 0; i < gameType; i++) {
+        let tile = document.createElement("div");
+        tile.classList.add("tile");
+        tile.classList.add("gameOver");
+        if (given[i] !== "") {
+            tile.innerHTML = given[i].toUpperCase();
+        }
+        newLine.appendChild(tile);
+
+    }
+    guessContainer.appendChild(newLine);
+
+}

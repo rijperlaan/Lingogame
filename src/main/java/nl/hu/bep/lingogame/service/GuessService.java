@@ -5,9 +5,11 @@ import java.util.List;
 
 public class GuessService {
     private String word;
+    private boolean correct;
 
     public GuessService(String word) {
         this.word = word;
+        this.correct = true;
     }
 
     public String getWord() {
@@ -16,6 +18,10 @@ public class GuessService {
 
     public void setWord(String word) {
         this.word = word;
+    }
+
+    public boolean isCorrect() {
+        return correct;
     }
 
     public String[][] checkGuess(String guess) {
@@ -42,6 +48,7 @@ public class GuessService {
                 } else {
                     result[i][1] = "absent";
                 }
+                correct = false;
             }
         }
 

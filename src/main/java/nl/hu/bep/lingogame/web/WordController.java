@@ -58,7 +58,8 @@ public class WordController {
         System.out.println("guess = " + mapper.valueToTree(guessResult));
 
         int attempts = session.get(sessionToken) + 1;
-        if (attempts >= 5) {
+
+        if (attempts >= 5 && !guessService.isCorrect()) {
             session.remove(sessionToken);
             response.put("gameOver", true);
             response.put("answer", word);
