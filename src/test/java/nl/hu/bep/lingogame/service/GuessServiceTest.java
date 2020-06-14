@@ -3,6 +3,8 @@ package nl.hu.bep.lingogame.service;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GuessServiceTest {
 
@@ -36,5 +38,18 @@ class GuessServiceTest {
         assertEquals("present", result[3][1]);
         assertEquals("present", result[4][1]);
         assertEquals("absent", result[5][1]);
+    }
+
+    @Test
+    void testCheckGuessCorrect() {
+        GuessService guessService = new GuessService("xxx");
+        guessService.checkGuess("xxx");
+
+        assertTrue(guessService.isCorrect());
+
+        guessService = new GuessService("yyy");
+        guessService.checkGuess("zzz");
+
+        assertFalse(guessService.isCorrect());
     }
 }
