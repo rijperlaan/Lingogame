@@ -107,14 +107,14 @@ function sendGuess() {
                 i++;
             }
 
-            let guessContainer = document.getElementById("guessContainer");
-            if (guessContainer.children.length > 4) {
-                guessContainer.removeChild(guessContainer.firstChild);
-            }
             document.getElementById("guess").value = "";
             if (complete) {
                 resetGame();
             } else {
+                let guessContainer = document.getElementById("guessContainer");
+                if (guessContainer.children.length > 4) {
+                    guessContainer.removeChild(guessContainer.firstChild);
+                }
                 prepareLine();
             }
         })

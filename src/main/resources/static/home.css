@@ -17,6 +17,7 @@ body {
 #gameHeader h1 {
     font-size: 100px;
     margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 #gameHeader h2 {
