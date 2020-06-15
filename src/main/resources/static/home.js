@@ -15,6 +15,7 @@ document.getElementById("guess").addEventListener("keyup", function (event) {
 });
 
 fiveButton.addEventListener("click", function (event) {
+    resetGame();
     gameType = 5;
     fiveButton.classList.add("selected");
     sixButton.classList.remove("selected");
@@ -22,6 +23,7 @@ fiveButton.addEventListener("click", function (event) {
     startGame();
 });
 sixButton.addEventListener("click", function (event) {
+    resetGame();
     gameType = 6;
     sixButton.classList.add("selected");
     fiveButton.classList.remove("selected");
@@ -29,6 +31,7 @@ sixButton.addEventListener("click", function (event) {
     startGame();
 });
 sevenButton.addEventListener("click", function (event) {
+    resetGame();
     gameType = 7;
     sevenButton.classList.add("selected");
     sixButton.classList.remove("selected");
